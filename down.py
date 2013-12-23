@@ -2,14 +2,15 @@
 import sqlite3
 import os
 import urllib2
+
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-con = sqlite3.connect("miui.db")
+con = sqlite3.connect("url.db")
 cur = con.cursor()
 
-for i in range(1,10+1):
+for i in range(306,350+1):
 	sql = "select PageUrl from content where id = " + str(i)
 	cur.execute(sql)
 	res = cur.fetchone()
@@ -18,6 +19,7 @@ for i in range(1,10+1):
 	
 	r = urllib2.urlopen(downUrl.rstrip())
 	file_name = urllib2.unquote(r.geturl()).decode('utf8').split('/')[-1]
-	op = "wget -O " + str(i) + "." + file_name + " " + downUrl
+	op = "wget -O ~/MIUI/Themes/" + str(i) + "." + file_name + " " + downUrl
 	os.system(op)
+	os.system("sleep 3")
 	i = i + 1
