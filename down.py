@@ -10,7 +10,7 @@ sys.setdefaultencoding('utf-8')
 con = sqlite3.connect("url.db")
 cur = con.cursor()
 
-for i in range(306,350+1):
+for i in range(351,1500+1):
 	sql = "select PageUrl from content where id = " + str(i)
 	cur.execute(sql)
 	res = cur.fetchone()
