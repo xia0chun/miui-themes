@@ -12,7 +12,7 @@ sys.setdefaultencoding('utf-8')
 con = sqlite3.connect("mimi.db")
 cur = con.cursor()
 
-for i in range(1,10+1):
+for i in range(1,500+1):
 	
 	#从数据库中检索出更新时间和Pageurl
 	sql = "select 更新时间,PageUrl from content where id = " + str(i)
@@ -40,5 +40,6 @@ for i in range(1,10+1):
 	if not os.path.isfile(localDir + "/" + localName):
 		op = "wget -O " + localDir + "/" + localName + " " + downUrl
 		os.system(op)
+		print "第 " + str(i) + " 个已经下载"
 	
 	i = i + 1
