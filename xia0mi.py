@@ -23,10 +23,12 @@ for i in range(1,83+1):
 	
 soup = BeautifulSoup(urllib2.urlopen("http://zhuti.xiaomi.com/compound?page=1&sort=New").read())
 
+i = 1
+
 for thumb in soup.findAll("div", {"class" : "thumb"}):
 	#解析URL链接
 	urlMatch = re.findall(urlPattern,str(thumb))
-	print urlMatch[0]
+	print urlMatch[0].replace('"','').replace('href=','')
 	
 	#解析主题名称
 	nameMatch = re.findall(namePattern,str(thumb))
@@ -34,7 +36,9 @@ for thumb in soup.findAll("div", {"class" : "thumb"}):
 	
 	#解析缩略图链接
 	imgMatch = re.findall(imgPattern,str(thumb))
-	print imgMatch[0]
+	print imgMatch[0].replace('"','').replace('data-src=','')
+	print i
+	i = i + 1
 	
 	print ""
 	
