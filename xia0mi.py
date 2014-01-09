@@ -30,11 +30,13 @@ for thumb in soup.findAll("div", {"class" : "thumb"}):
 	
 	#解析主题名称
 	nameMatch = re.findall(namePattern,str(thumb))
-	print nameMatch[0]
+	print nameMatch[0].replace('"','').replace('title=','')
 	
 	#解析缩略图链接
 	imgMatch = re.findall(imgPattern,str(thumb))
 	print imgMatch[0]
+	
+	print ""
 	
 	thumbList.append(thumb)
 
