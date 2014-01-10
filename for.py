@@ -37,4 +37,5 @@ for i in range(1,84+1):
 		print str((i - 1) * 30 + j)
 		print ""
 		j = j + 1
-		time.sleep(2)
+	
+	time.sleep(2)
