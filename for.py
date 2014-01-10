@@ -4,6 +4,7 @@ import os
 import urllib2
 import re
 import HTMLParser
+import time
 from bs4 import BeautifulSoup
 
 #将系统默认编码设置为utf-8
@@ -36,3 +37,4 @@ for i in range(1,84+1):
 		print str((i - 1) * 30 + j)
 		print ""
 		j = j + 1
+		time.sleep(2)
