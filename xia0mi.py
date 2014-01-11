@@ -4,6 +4,7 @@ import os
 import urllib2
 import re
 import HTMLParser
+import time
 from bs4 import BeautifulSoup
 
 #将系统默认编码设置为utf-8
@@ -11,40 +12,36 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-urlList = [];
-thumbList = [];
+#各项属性的正则匹配参数
+themeUrlPattern = re.compile(r'href=.+?"')
+themeNamePattern = re.compile(r'title=.+?"')
+thumbUrlPattern = re.compile(r'data-src=.+?"')
 
+#html解析
 html_parser = HTMLParser.HTMLParser()
 
-urlPattern = re.compile(r'href=.+?"')
-namePattern = re.compile(r'title=.+?"')
-imgPattern = re.compile(r'data-src=.+?"')
-
-for i in range(1,83+1):
+for i in range(1,84+1):
+	
+	j = 1
 	url = "http://zhuti.xiaomi.com/compound?page=" + str(i) + "&sort=New"
-	urlList.append(url)
+	soup = BeautifulSoup(urllib2.urlopen(url).read())
 	
-soup = BeautifulSoup(urllib2.urlopen("http://zhuti.xiaomi.com/compound?page=3&sort=New").read())
-
-i = 1
-
-for thumb in soup.findAll("div", {"class" : "thumb"}):
-	#解析URL链接
-	urlMatch = re.findall(urlPattern,str(thumb))
-	print urlMatch[0].replace('"','').replace('href=','')
 	
-	#解析主题名称
-	nameMatch = re.findall(namePattern,str(thumb))
-	print html_parser.unescape(nameMatch[0].replace('"','').replace('title=',''))
+	for thumb in soup.findAll("div",{"class" : "thumb"}):
+		#解析themeUrl
+		themeUrl = re.findall(themeUrlPattern,str(thumb))
+		print themeUrl[0].replace('"','').replace('href=','')
+		
+		#解析themeName
+		themeName = re.findall(themeNamePattern,str(thumb))
+		print html_parser.unescape(themeName[0].replace('"','').replace('title=',''))
+		
+		#解析thumbUrl
+		thumbUrl = re.findall(thumbUrlPattern,str(thumb))
+		print thumbUrl[0].replace('"','').replace('data-src=','')
+		
+		print str((i - 1) * 30 + j)
+		print ""
+		j = j + 1
 	
-	#解析缩略图链接
-	imgMatch = re.findall(imgPattern,str(thumb))
-	print imgMatch[0].replace('"','').replace('data-src=','')
-	print i
-	i = i + 1
-	
-	print ""
-	
-	thumbList.append(thumb)
-
-
+	time.sleep(2)
