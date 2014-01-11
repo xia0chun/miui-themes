@@ -20,6 +20,10 @@ thumbUrlPattern = re.compile(r'data-src=.+?"')
 #html解析
 html_parser = HTMLParser.HTMLParser()
 
+#连接数据库
+con = sqlite3.connect("miuiTheme.db")
+cur = con.cursor()
+
 for i in range(1,84+1):
 	
 	j = 1
@@ -40,8 +44,15 @@ for i in range(1,84+1):
 		thumbUrl = re.findall(thumbUrlPattern,str(thumb))
 		print thumbUrl[0].replace('"','').replace('data-src=','')
 		
+		#将themeUrl存入数据库
+		sql = "insert into baseInfo(themeUrl) values ('" + themeUrl[0].replace('"','').replace('href=','') + "')"
+		#sql = "insert into baseInfo(themeUrl) values ('only a test')"
+		#con.execute("insert into baseInfo(themeUrl) values ('only a test')")
+		con.execute(sql)
+		con.commit()
+		
 		print str((i - 1) * 30 + j)
 		print ""
 		j = j + 1
 	
-	time.sleep(2)
+	time.sleep(1)
