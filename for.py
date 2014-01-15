@@ -81,7 +81,7 @@ for i in range(1,10+1):
 		for infoLv2 in soupLv2.findAll("div",{"class" : "mod detail-infos"}):
 			#解析资源介绍info
 			info = re.findall(infoPattern,str(infoLv2).replace('\n',''))
-			print info[0].replace('</','').replace('<div>','').replace('class="bd">','').replace(' ','')
+			print info[0].replace('</','').replace('<div>','').replace('class="bd">','').replace('  ','')
 			
 		for imgLv2 in soupLv2.findAll("div",{"class" : "thumbnail"}):
 			#解析显性图片visibleImg
