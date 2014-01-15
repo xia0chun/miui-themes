@@ -25,6 +25,9 @@ sizePattern = re.compile(r'大小.+?\n')
 updatePattern = re.compile(r'更新时间.+?\n')
 modulesPattern = re.compile(r'包含模块.+?\n')
 infoPattern = re.compile(r'class="bd.+?</')
+pricePattern = re.compile(r'id="J_buy.+?</')
+visibleImgPattern = re.compile(r'<img alt="" src=.+?/>')
+invisibleImgPattern = re.compile(r'data-src=.+?/>')
 
 #html解析
 html_parser = HTMLParser.HTMLParser()
@@ -79,6 +82,18 @@ for i in range(1,10+1):
 			#解析资源介绍info
 			info = re.findall(infoPattern,str(infoLv2).replace('\n',''))
 			print info[0].replace('</','').replace('<div>','').replace('class="bd">','').replace(' ','')
+			
+		for imgLv2 in soupLv2.findAll("div",{"class" : "thumbnail"}):
+			#解析显性图片visibleImg
+			visibleImg = re.findall(visibleImgPattern,str(imgLv2).replace('\n',''))
+			for img in visibleImg:
+				print img.replace('<img alt="" src="','').replace('"/>','') 
+			
+			#解析隐性图片invisbleImg
+			invisibleImg = re.findall(invisibleImgPattern,str(imgLv2).replace('\n',''))
+			for img in invisibleImg:
+				print img.replace('data-src="','').replace('" src="http://resource.xiaomi.net/miuimarket/lazyload.png"/>','')
+			
 			
 			print str((i - 1) * 30 + j)
 			print ""
