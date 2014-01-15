@@ -24,6 +24,7 @@ authorPattern = re.compile(r'制作者.+?\n')
 sizePattern = re.compile(r'大小.+?\n')
 updatePattern = re.compile(r'更新时间.+?\n')
 modulesPattern = re.compile(r'包含模块.+?\n')
+infoPattern = re.compile(r'class="bd.+?</')
 
 #html解析
 html_parser = HTMLParser.HTMLParser()
@@ -73,6 +74,11 @@ for i in range(1,10+1):
 			#解析包含模块modules
 			modules = re.findall(modulesPattern,str(detailLv2))
 			print modules[0].replace('\n','').replace('</span>','')
+			
+		for infoLv2 in soupLv2.findAll("div",{"class" : "mod detail-infos"}):
+			#解析资源介绍info
+			info = re.findall(infoPattern,str(infoLv2).replace('\n',''))
+			print info[0].replace('</','').replace('<div>','').replace('class="bd">','').replace(' ','')
 			
 			print str((i - 1) * 30 + j)
 			print ""
