@@ -13,10 +13,12 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 #各项属性的正则匹配参数
+#lv1
 themeUrlPattern = re.compile(r'href=.+?"')
 themeNamePattern = re.compile(r'title=.+?"')
 thumbUrlPattern = re.compile(r'data-src=.+?"')
 
+#lv2
 designerPattern = re.compile(r'设计师.+?\n')
 authorPattern = re.compile(r'制作者.+?\n')
 sizePattern = re.compile(r'大小.+?\n')
@@ -29,7 +31,7 @@ html_parser = HTMLParser.HTMLParser()
 #根地址
 rootUrl = "http://zhuti.xiaomi.com"
 
-for i in range(1,84+1):
+for i in range(1,10+1):
 	
 	j = 1
 	url = "http://zhuti.xiaomi.com/compound?page=" + str(i) + "&sort=New"
